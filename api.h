@@ -63,7 +63,11 @@ class MateAPI {
         const std::vector<std::string>& addresses
     ) = 0;
 
-    virtual 
+    virtual std::unordered_multimap<std::string, Bundle>
+    getConfirmedBundlesdForAddresses(
+        const std::vector<std::string>& tails, 
+        const nonstd::optional<std::string>& reference) =0;
+    
 
     }
 
