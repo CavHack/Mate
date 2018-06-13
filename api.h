@@ -1,9 +1,9 @@
-#ifndef MATE_DEEPCLIENT_API_H
-#define MATE_DEEPCLIENT_API_H
+#ifndef MATE_DEEPCLIENT_API_H_
+#define MATE_DEEPCLIENT_API_H_
 
 #include<chrono>
 #include<cstdint>
-//#include<nonstd/optional.hpp>
+#include<nonstd/optional.hpp>
 #include<string>
 #include<unordered_map>
 #include<unordered_set>
@@ -63,13 +63,49 @@ class MateAPI {
         const std::vector<std::string>& addresses
     ) = 0;
 
+
+
     virtual std::unordered_multimap<std::string, Bundle>
     getConfirmedBundlesdForAddresses(
-        const std::vector<std::string>& tails, 
-        const nonstd::optional<std::string>& reference) =0;
+        const std::vector<std::string>& addresses) =0;
+
+    virtual std::unordered_set<std::string> filterConfirmedTails(
+        const std::vector<std::string>& tails,
+        const nonstd::optional<std::string>& reference) = 0;
     
+    virtual std::unordered_set<std::string> filterConsistentTails(
+        const std::vector<std::string>& tails)=0;
 
-    }
+    virtual std::vector<std::string> findTransactions(
+        nonstd::optional<std::vector<std::string>> addresses,
+        nonstd::optional<std::vector<std::string>> bundles,
+        nonstd::optional<std::vector<std::string>> approvees) =0;
 
+    virtual NodeInfo getNodeInfo() = 0;
 
-}
+    virtual std::vector<Transaction> getTransactions(
+        const std::vector<std::string>& hashes) =0;
+
+    virtual std::vector<std::string>getTrytes(
+       const std::vector<std::string>& hashes) =0;
+
+    virtual std::vector<std::string> attachToTangle(
+            const std::string& trunkTransaction, const std::string& branchTransaction,
+            size_t minWeightMagnitude, const std::vector<std::string>& trytes) = 0;
+         
+
+ virtual GetTransactionsToApproveResponse getTransactionsToApprove(
+      size_t depth, const nonstd::optional<std::string>& reference = {}) = 0;
+
+  virtual bool storeTransactions(const std::vector<std::string>& trytes) = 0;
+
+  virtual GetInclusionStatesResponse getInclusionStates(
+      const std::vector<std::string>& trans,
+      const std::vector<std::string>& tips) = 0;
+
+  virtual bool broadcastTransactions(
+      const std::vector<std::string>& trytes) = 0;
+    };
+}  // namespace cppclient
+
+#endif
