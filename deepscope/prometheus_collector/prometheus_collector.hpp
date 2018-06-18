@@ -32,6 +32,10 @@ namespace mate {
                 const std::string& metricName,
                 const std::map<std::string, std::string>& labels,
                 const std::map<std::string, std::string>& nameToDesc);
+
+            static CountersMap buildCountersMap(
+                
+            )
         }
     }
 }
