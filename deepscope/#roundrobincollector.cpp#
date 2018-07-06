@@ -4,6 +4,8 @@
 #include <mate/deepscope/roundrobincollector.hpp>
 #include <mate/deepscope/common/zmqpub.hpp>
 
+using namespace mate::deepscope;
+
 std::map<std::string, std::string> RoundRobinCollector:nametoDescHistogram = {
 
 {RoundRobinCollector::TX_NUM_APPROVERS,
